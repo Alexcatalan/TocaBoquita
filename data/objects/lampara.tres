@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ObjectData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://resources/StateDef.gd" id="1"]
+[ext_resource type="Script" path="res://resources/ObjectData.gd" id="2"]
+
+[sub_resource type="Resource" id="StateApagada"]
+script = ExtResource("1")
+id = "apagada"
+modulate = Color(0.78, 0.78, 0.84, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[sub_resource type="Resource" id="StateEncendida"]
+script = ExtResource("1")
+id = "encendida"
+modulate = Color(1, 0.91, 0.45, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[resource]
+script = ExtResource("2")
+id = "lampara"
+draggable = false
+portable = false
+states = [SubResource("StateApagada"), SubResource("StateEncendida")]
+drop_targets = []
+initial_state = "apagada"
