@@ -6,7 +6,8 @@
 [sub_resource type="Resource" id="Resource_gnuir"]
 script = ExtResource("2_y0pqq")
 id = "oso"
-modulate = Color(0.8, 0.6, 0.4, 1)
+shape = "teddy"
+modulate = Color(0.8, 0.6, 0.42, 1)
 animation = ""
 particle = ""
 next_state = ""

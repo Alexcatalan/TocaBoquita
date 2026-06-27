@@ -6,7 +6,8 @@
 [sub_resource type="Resource" id="Resource_3hkvu"]
 script = ExtResource("2_vnouo")
 id = "dia"
-modulate = Color(1, 0.92, 0.5, 1)
+shape = "window_day"
+modulate = Color(0.58, 0.8, 1, 1)
 animation = ""
 particle = ""
 next_state = ""
@@ -14,7 +15,8 @@ next_state = ""
 [sub_resource type="Resource" id="Resource_hewhb"]
 script = ExtResource("2_vnouo")
 id = "noche"
-modulate = Color(0.32, 0.36, 0.6, 1)
+shape = "window_night"
+modulate = Color(0.26, 0.3, 0.5, 1)
 animation = ""
 particle = ""
 next_state = ""

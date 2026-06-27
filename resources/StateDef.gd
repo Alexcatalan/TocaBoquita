@@ -6,8 +6,11 @@ extends Resource
 ## Identificador del estado (ej: "apagada", "encendida"). Único dentro del objeto.
 @export var id: String = ""
 
-## Sprite a mostrar en este estado. Si es null, se usa un placeholder de color.
+## Sprite a mostrar en este estado. Si es null, se dibuja `shape` con Art (placeholder de alta calidad).
 @export var texture: Texture2D
+
+## Forma procedural a dibujar cuando no hay texture (ej: "fridge", "cake_lit", "duck"). Ver Art.gd.
+@export var shape: String = ""
 
 ## Tinte aplicado al sprite. Con placeholders (texture == null) ESTE color ES el objeto.
 ## Reemplazar placeholder -> arte final = poner la `texture`, sin tocar lógica.

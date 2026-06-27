@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_spl2x"]
 script = ExtResource("2_io83e")
 id = "cerrado"
+shape = "gift"
 modulate = Color(0.62, 0.86, 0.62, 1)
 animation = ""
 particle = ""
@@ -19,7 +20,8 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_m1ar7"]
 script = ExtResource("2_io83e")
 id = "abierto"
-modulate = Color(1, 0.62, 0.32, 1)
+shape = "gift_open"
+modulate = Color(0.62, 0.86, 0.62, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_mrt1m")
 particle = "confeti"

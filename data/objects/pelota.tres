@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_rgmli"]
 script = ExtResource("2_rrllo")
 id = "pelota"
+shape = "ball"
 modulate = Color(0.95, 0.45, 0.45, 1)
 animation = ""
 particle = ""

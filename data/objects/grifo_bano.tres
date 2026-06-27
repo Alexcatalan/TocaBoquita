@@ -6,7 +6,8 @@
 [sub_resource type="Resource" id="Resource_bd12b"]
 script = ExtResource("2_818ap")
 id = "cerrado"
-modulate = Color(0.78, 0.78, 0.84, 1)
+shape = "faucet"
+modulate = Color(0.82, 0.84, 0.9, 1)
 animation = ""
 particle = ""
 next_state = ""
@@ -19,10 +20,11 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_60tb4"]
 script = ExtResource("2_818ap")
 id = "abierto"
-modulate = Color(0.5, 0.7, 1, 1)
+shape = "faucet_on"
+modulate = Color(0.82, 0.84, 0.9, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_06foi")
-particle = "burbujas"
+particle = ""
 next_state = ""
 
 [resource]

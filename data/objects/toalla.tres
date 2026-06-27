@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_2hiex"]
 script = ExtResource("2_nccrm")
 id = "colgada"
+shape = "towel"
 modulate = Color(1, 0.7, 0.8, 1)
 animation = ""
 particle = ""
@@ -14,6 +15,7 @@ next_state = ""
 [sub_resource type="Resource" id="Resource_cyin6"]
 script = ExtResource("2_nccrm")
 id = "caida"
+shape = "towel"
 modulate = Color(0.95, 0.45, 0.45, 1)
 animation = ""
 particle = ""

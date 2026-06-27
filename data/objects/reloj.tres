@@ -6,7 +6,8 @@
 [sub_resource type="Resource" id="Resource_bhyy1"]
 script = ExtResource("2_3preo")
 id = "tic"
-modulate = Color(0.78, 0.78, 0.84, 1)
+shape = "clock"
+modulate = Color(0.97, 0.95, 0.9, 1)
 animation = ""
 particle = ""
 next_state = ""
@@ -19,7 +20,8 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_0tqsq"]
 script = ExtResource("2_3preo")
 id = "tac"
-modulate = Color(0.7, 0.85, 1, 1)
+shape = "clock"
+modulate = Color(0.97, 0.95, 0.9, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_d28o8")
 particle = ""

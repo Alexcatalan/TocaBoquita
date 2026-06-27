@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_rmlt6"]
 script = ExtResource("2_ccuon")
 id = "cerrada"
+shape = "flower"
 modulate = Color(0.62, 0.86, 0.62, 1)
 animation = ""
 particle = ""
@@ -19,6 +20,7 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_2m456"]
 script = ExtResource("2_ccuon")
 id = "abierta"
+shape = "flower_open"
 modulate = Color(1, 0.7, 0.8, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_fr84r")

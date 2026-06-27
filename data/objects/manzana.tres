@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_bg1br"]
 script = ExtResource("2_e6y5k")
 id = "roja"
+shape = "apple"
 modulate = Color(0.95, 0.45, 0.45, 1)
 animation = ""
 particle = ""

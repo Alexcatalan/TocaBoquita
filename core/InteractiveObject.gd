@@ -14,11 +14,11 @@ signal dropped(object: InteractiveObject, global_pos: Vector2)     # soltado en 
 var origin: Vector2  # posición original (para volver tras un drag)
 
 var _sprite: Sprite2D
+var _shadow: Sprite2D
 var _area: Area2D
 var _shape: RectangleShape2D
 var _machine: StateMachine
 var _draggable: Draggable
-var _placeholder: Texture2D
 
 func _ready() -> void:
 	origin = position
@@ -27,7 +27,10 @@ func _ready() -> void:
 		_apply_data()
 
 func _build() -> void:
-	_placeholder = Placeholder.rounded_rect(Vector2i(170, 170), 40)
+	_shadow = Sprite2D.new()
+	_shadow.texture = Art.shadow(180.0)
+	_shadow.position = Vector2(0, 96)
+	add_child(_shadow)
 
 	_sprite = Sprite2D.new()
 	add_child(_sprite)
@@ -60,10 +63,15 @@ func _on_tapped() -> void:
 
 func _apply_state(state: StateDef, animate: bool) -> void:
 	if state == null:
-		_sprite.texture = _placeholder
+		_sprite.texture = Art.make("", Color.WHITE)
 		return
-	_sprite.texture = state.texture if state.texture else _placeholder
-	_sprite.modulate = state.modulate
+	if state.texture:
+		_sprite.texture = state.texture
+		_sprite.modulate = state.modulate
+	else:
+		# Arte procedural de alta calidad (forma + color), ya coloreado: sin tinte extra.
+		_sprite.texture = Art.make(state.shape, state.modulate)
+		_sprite.modulate = Color.WHITE
 	# Ajusta la hitbox al tamaño visible, con mínimo generoso para dedos.
 	var tex_size := _sprite.texture.get_size() if _sprite.texture else Vector2(180, 180)
 	_shape.size = tex_size.max(Vector2(160, 160))

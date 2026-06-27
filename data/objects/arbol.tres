@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_u4g5i"]
 script = ExtResource("2_bkbkq")
 id = "verano"
+shape = "tree"
 modulate = Color(0.62, 0.86, 0.62, 1)
 animation = ""
 particle = ""
@@ -14,6 +15,7 @@ next_state = ""
 [sub_resource type="Resource" id="Resource_jcqtm"]
 script = ExtResource("2_bkbkq")
 id = "otono"
+shape = "tree"
 modulate = Color(1, 0.62, 0.32, 1)
 animation = ""
 particle = ""

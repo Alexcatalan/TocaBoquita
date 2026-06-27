@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_qsvo2"]
 script = ExtResource("2_dk7m4")
 id = "pato"
+shape = "duck"
 modulate = Color(1, 0.92, 0.5, 1)
 animation = ""
 particle = ""

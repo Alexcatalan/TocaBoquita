@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_do5b5"]
 script = ExtResource("2_vis5h")
 id = "vacio"
+shape = "slide"
 modulate = Color(1, 0.62, 0.32, 1)
 animation = ""
 particle = ""
@@ -19,7 +20,8 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_s8jdb"]
 script = ExtResource("2_vis5h")
 id = "usandose"
-modulate = Color(1, 0.92, 0.5, 1)
+shape = "slide"
+modulate = Color(1, 0.62, 0.32, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_0qaod")
 particle = "estrellas"

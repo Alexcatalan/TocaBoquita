@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_uco8h"]
 script = ExtResource("2_r36wr")
 id = "cepillo"
+shape = "toothbrush"
 modulate = Color(1, 0.7, 0.8, 1)
 animation = ""
 particle = ""

@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_nx0re"]
 script = ExtResource("2_c6dn7")
 id = "gorro"
+shape = "hat"
 modulate = Color(1, 0.7, 0.8, 1)
 animation = ""
 particle = ""

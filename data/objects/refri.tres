@@ -6,7 +6,8 @@
 [sub_resource type="Resource" id="Resource_hq8d2"]
 script = ExtResource("2_ac6s6")
 id = "cerrado"
-modulate = Color(0.78, 0.78, 0.84, 1)
+shape = "fridge"
+modulate = Color(0.96, 0.97, 1, 1)
 animation = ""
 particle = ""
 next_state = ""
@@ -19,7 +20,8 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_dwjcx"]
 script = ExtResource("2_ac6s6")
 id = "abierto"
-modulate = Color(0.7, 0.85, 1, 1)
+shape = "fridge_open"
+modulate = Color(0.96, 0.97, 1, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_su2u1")
 particle = ""

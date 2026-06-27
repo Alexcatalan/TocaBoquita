@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_ya6os"]
 script = ExtResource("2_3bj2g")
 id = "pelota"
+shape = "ball"
 modulate = Color(0.62, 0.86, 0.62, 1)
 animation = ""
 particle = ""

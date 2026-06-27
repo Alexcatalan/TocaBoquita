@@ -106,10 +106,10 @@ func _build_exits() -> void:
 		rect.size = ex.area_size
 		col.shape = rect
 		exit.add_child(col)
-		# Puerta placeholder visible (rectángulo redondeado tintado + etiqueta).
+		# Puerta visible (arte procedural) + etiqueta.
 		var door := Sprite2D.new()
-		door.texture = Placeholder.rounded_rect(Vector2i(ex.area_size), 28)
-		door.modulate = ex.color
+		door.texture = Art.make("door", ex.color)
+		door.scale = ex.area_size / 200.0
 		exit.add_child(door)
 		if ex.label != "":
 			var lbl := Label.new()

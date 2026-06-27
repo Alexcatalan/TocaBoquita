@@ -34,9 +34,10 @@ func _ensure_dirs() -> void:
 
 # --- Helpers ---
 
-func st(id: String, color: Color, beep_freq: float = 0.0, particle: String = "", next_state: String = "") -> StateDef:
+func st(id: String, shape: String, color: Color, beep_freq: float = 0.0, particle: String = "", next_state: String = "") -> StateDef:
 	var s := StateDef.new()
 	s.id = id
+	s.shape = shape
 	s.modulate = color
 	s.particle = particle
 	s.next_state = next_state
@@ -123,51 +124,62 @@ func layer(slot: String, color: Color, z: int) -> CharacterLayer:
 # --- Objetos ---
 
 func _build_objects() -> void:
+	# Colores naturales de cada objeto.
+	var white_f := Color(0.96, 0.97, 1.0)
+	var metal := Color(0.64, 0.66, 0.72)
+	var steel := Color(0.82, 0.84, 0.9)
+	var sky := Color(0.58, 0.8, 1.0)
+	var nightsky := Color(0.26, 0.3, 0.5)
+	var lampc := Color(1.0, 0.86, 0.5)
+	var teddyc := Color(0.80, 0.6, 0.42)
+	var clockc := Color(0.97, 0.95, 0.9)
+	var petc := Color(0.86, 0.7, 0.5)
+
 	# Cocina
-	save_obj("refri", [st("cerrado", GRAY), st("abierto", LBLUE, 300.0)])
-	save_obj("estufa", [st("apagada", GRAY), st("encendida", ORANGE, 200.0)])
-	save_obj("olla", [st("vacia", GRAY), st("llena", GREEN)])
-	save_obj("grifo", [st("cerrado", GRAY), st("abierto", BLUE, 520.0, "burbujas")])
-	save_obj("ventana", [st("dia", YELLOW), st("noche", DARKBLUE)])
-	save_obj("manzana", [st("roja", RED)], true, true, ["olla"])
-	save_obj("pan", [st("pan", BROWN)], true, true, ["olla"])
-	save_obj("zanahoria", [st("naranja", ORANGE)], true, true, ["olla"])
+	save_obj("refri", [st("cerrado", "fridge", white_f), st("abierto", "fridge_open", white_f, 300.0)])
+	save_obj("estufa", [st("apagada", "stove", steel), st("encendida", "stove_on", steel, 200.0)])
+	save_obj("olla", [st("vacia", "pot", metal), st("llena", "pot_full", metal)])
+	save_obj("grifo", [st("cerrado", "faucet", steel), st("abierto", "faucet_on", steel, 520.0)])
+	save_obj("ventana", [st("dia", "window_day", sky), st("noche", "window_night", nightsky)])
+	save_obj("manzana", [st("roja", "apple", RED)], true, true, ["olla"])
+	save_obj("pan", [st("pan", "bread", BROWN)], true, true, ["olla"])
+	save_obj("zanahoria", [st("naranja", "carrot", ORANGE)], true, true, ["olla"])
 
 	# Dormitorio
-	save_obj("cama", [st("hecha", LBLUE), st("dormido", DARKBLUE, 220.0, "corazones")])
-	save_obj("lampara", [st("apagada", GRAY), st("encendida", YELLOW, 660.0)])
-	save_obj("closet", [st("cerrado", BROWN), st("abierto", CREAM, 300.0)])
-	save_obj("oso", [st("oso", BROWN)], true, true, ["cama"])
-	save_obj("bloque", [st("bloque", RED)], true, true)
-	save_obj("pelota_dorm", [st("pelota", GREEN)], true, true)
-	save_obj("reloj", [st("tic", GRAY), st("tac", LBLUE, 440.0)])
+	save_obj("cama", [st("hecha", "bed", LBLUE), st("dormido", "bed_sleep", LBLUE, 220.0, "corazones")])
+	save_obj("lampara", [st("apagada", "lamp", lampc), st("encendida", "lamp_on", lampc, 660.0, "estrellas")])
+	save_obj("closet", [st("cerrado", "closet", BROWN), st("abierto", "closet_open", BROWN, 300.0)])
+	save_obj("oso", [st("oso", "teddy", teddyc)], true, true, ["cama"])
+	save_obj("bloque", [st("bloque", "block", RED)], true, true)
+	save_obj("pelota_dorm", [st("pelota", "ball", GREEN)], true, true)
+	save_obj("reloj", [st("tic", "clock", clockc), st("tac", "clock", clockc, 440.0)])
 
 	# Baño
-	save_obj("tina", [st("vacia", GRAY), st("agua", BLUE, 520.0), st("burbujas", LBLUE, 600.0, "burbujas")])
-	save_obj("espejo", [st("normal", LBLUE), st("empanado", GRAY)])
-	save_obj("grifo_bano", [st("cerrado", GRAY), st("abierto", BLUE, 520.0, "burbujas")])
-	save_obj("pasta", [st("pasta", MINT)], true, true)
-	save_obj("cepillo", [st("cepillo", PINK)], true, true)
-	save_obj("pato", [st("pato", YELLOW)], true, true, ["tina"])
-	save_obj("toalla", [st("colgada", PINK), st("caida", RED)])
+	save_obj("tina", [st("vacia", "tub", white_f), st("agua", "tub_water", white_f, 520.0), st("burbujas", "tub_bubbles", white_f, 600.0, "burbujas")])
+	save_obj("espejo", [st("normal", "mirror", LBLUE), st("empanado", "mirror_fog", LBLUE)])
+	save_obj("grifo_bano", [st("cerrado", "faucet", steel), st("abierto", "faucet_on", steel, 520.0)])
+	save_obj("pasta", [st("pasta", "toothpaste", MINT)], true, true)
+	save_obj("cepillo", [st("cepillo", "toothbrush", PINK)], true, true)
+	save_obj("pato", [st("pato", "duck", YELLOW)], true, true, ["tina"])
+	save_obj("toalla", [st("colgada", "towel", PINK), st("caida", "towel", RED)])
 
 	# Parque
-	save_obj("columpio", [st("quieto", BROWN), st("meciendose", GREEN, 300.0)])
-	save_obj("tobogan", [st("vacio", ORANGE), st("usandose", YELLOW, 400.0, "estrellas")])
-	save_obj("charco", [st("quieto", BLUE), st("salpicando", LBLUE, 520.0, "burbujas")])
-	save_obj("mascota", [st("feliz", BROWN, 350.0, "corazones")], true, false)
-	save_obj("arbol", [st("verano", GREEN), st("otono", ORANGE)])
-	save_obj("flor", [st("cerrada", GREEN), st("abierta", PINK, 700.0, "corazones")])
-	save_obj("pelota", [st("pelota", RED)], true, true)
+	save_obj("columpio", [st("quieto", "swing", BROWN), st("meciendose", "swing", BROWN, 300.0)])
+	save_obj("tobogan", [st("vacio", "slide", ORANGE), st("usandose", "slide", ORANGE, 400.0, "estrellas")])
+	save_obj("charco", [st("quieto", "puddle", BLUE), st("salpicando", "puddle_splash", BLUE, 520.0, "burbujas")])
+	save_obj("mascota", [st("feliz", "pet", petc, 350.0, "corazones")], true, false)
+	save_obj("arbol", [st("verano", "tree", GREEN), st("otono", "tree", ORANGE)])
+	save_obj("flor", [st("cerrada", "flower", GREEN), st("abierta", "flower_open", PINK, 700.0, "corazones")])
+	save_obj("pelota", [st("pelota", "ball", RED)], true, true)
 
 	# Fiesta
-	save_obj("torta", [st("apagada", CREAM), st("velas", YELLOW, 500.0, "estrellas")])
-	save_obj("globo1", [st("inflado", RED), st("estallado", GRAY, 900.0, "confeti")])
-	save_obj("globo2", [st("inflado", BLUE), st("estallado", GRAY, 900.0, "confeti")])
-	save_obj("regalo1", [st("cerrado", PINK), st("abierto", YELLOW, 500.0, "confeti")])
-	save_obj("regalo2", [st("cerrado", GREEN), st("abierto", ORANGE, 500.0, "confeti")])
-	save_obj("canon", [st("listo", PINK), st("disparado", YELLOW, 800.0, "confeti")])
-	save_obj("gorro", [st("gorro", PINK)], true, true)
+	save_obj("torta", [st("apagada", "cake", Color(1.0, 0.88, 0.78)), st("velas", "cake_lit", Color(1.0, 0.88, 0.78), 500.0, "estrellas")])
+	save_obj("globo1", [st("inflado", "balloon", RED), st("estallado", "balloon_pop", RED, 900.0, "confeti")])
+	save_obj("globo2", [st("inflado", "balloon", BLUE), st("estallado", "balloon_pop", BLUE, 900.0, "confeti")])
+	save_obj("regalo1", [st("cerrado", "gift", PINK), st("abierto", "gift_open", PINK, 500.0, "confeti")])
+	save_obj("regalo2", [st("cerrado", "gift", GREEN), st("abierto", "gift_open", GREEN, 500.0, "confeti")])
+	save_obj("canon", [st("listo", "cannon", PINK), st("disparado", "cannon_fire", PINK, 800.0, "confeti")])
+	save_obj("gorro", [st("gorro", "hat", PINK)], true, true)
 
 # --- Personaje ---
 

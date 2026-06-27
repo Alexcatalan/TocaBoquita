@@ -6,7 +6,8 @@
 [sub_resource type="Resource" id="Resource_li3ao"]
 script = ExtResource("2_e5sj8")
 id = "apagada"
-modulate = Color(0.98, 0.94, 0.86, 1)
+shape = "cake"
+modulate = Color(1, 0.88, 0.78, 1)
 animation = ""
 particle = ""
 next_state = ""
@@ -19,7 +20,8 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_66vep"]
 script = ExtResource("2_e5sj8")
 id = "velas"
-modulate = Color(1, 0.92, 0.5, 1)
+shape = "cake_lit"
+modulate = Color(1, 0.88, 0.78, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_5d71h")
 particle = "estrellas"

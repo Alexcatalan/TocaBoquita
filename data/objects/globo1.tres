@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_7qtd2"]
 script = ExtResource("2_wu6mn")
 id = "inflado"
+shape = "balloon"
 modulate = Color(0.95, 0.45, 0.45, 1)
 animation = ""
 particle = ""
@@ -19,7 +20,8 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_s0vhe"]
 script = ExtResource("2_wu6mn")
 id = "estallado"
-modulate = Color(0.78, 0.78, 0.84, 1)
+shape = "balloon_pop"
+modulate = Color(0.95, 0.45, 0.45, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_0jvvs")
 particle = "confeti"

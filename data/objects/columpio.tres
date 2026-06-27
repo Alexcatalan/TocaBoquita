@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_bmn51"]
 script = ExtResource("2_hq2d1")
 id = "quieto"
+shape = "swing"
 modulate = Color(0.8, 0.6, 0.4, 1)
 animation = ""
 particle = ""
@@ -19,7 +20,8 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_sqd1f"]
 script = ExtResource("2_hq2d1")
 id = "meciendose"
-modulate = Color(0.62, 0.86, 0.62, 1)
+shape = "swing"
+modulate = Color(0.8, 0.6, 0.4, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_ftc3q")
 particle = ""

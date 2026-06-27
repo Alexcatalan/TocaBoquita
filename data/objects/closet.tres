@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_t0xip"]
 script = ExtResource("2_kmjcu")
 id = "cerrado"
+shape = "closet"
 modulate = Color(0.8, 0.6, 0.4, 1)
 animation = ""
 particle = ""
@@ -19,7 +20,8 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_jknq6"]
 script = ExtResource("2_kmjcu")
 id = "abierto"
-modulate = Color(0.98, 0.94, 0.86, 1)
+shape = "closet_open"
+modulate = Color(0.8, 0.6, 0.4, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_iwr1v")
 particle = ""

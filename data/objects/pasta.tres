@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_txw6x"]
 script = ExtResource("2_0l7cv")
 id = "pasta"
+shape = "toothpaste"
 modulate = Color(0.88, 0.96, 0.9, 1)
 animation = ""
 particle = ""

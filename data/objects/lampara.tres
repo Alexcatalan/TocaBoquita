@@ -6,7 +6,8 @@
 [sub_resource type="Resource" id="Resource_u2vxx"]
 script = ExtResource("2_nugrp")
 id = "apagada"
-modulate = Color(0.78, 0.78, 0.84, 1)
+shape = "lamp"
+modulate = Color(1, 0.86, 0.5, 1)
 animation = ""
 particle = ""
 next_state = ""
@@ -19,10 +20,11 @@ mix_rate = 22050
 [sub_resource type="Resource" id="Resource_blbwd"]
 script = ExtResource("2_nugrp")
 id = "encendida"
-modulate = Color(1, 0.92, 0.5, 1)
+shape = "lamp_on"
+modulate = Color(1, 0.86, 0.5, 1)
 animation = ""
 sound = SubResource("AudioStreamWAV_xnk0b")
-particle = ""
+particle = "estrellas"
 next_state = ""
 
 [resource]
