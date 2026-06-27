@@ -80,7 +80,7 @@ func _test_character() -> void:
 			for p in c.get_children():
 				if p is Sprite2D:
 					parts += 1
-	_check(parts == 4, "personaje tiene 4 capas (cuerpo/piel/pelo/cara) (got %d)" % parts)
+	_check(parts >= 4, "personaje tiene capas (cuerpo/piel/pelo/cara + párpados) (got %d)" % parts)
 	ch.queue_free()
 
 func _test_scene_engine() -> void:

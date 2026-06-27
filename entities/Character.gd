@@ -20,6 +20,7 @@ var _rig: Node2D
 var _shadow: Sprite2D
 var _area: Area2D
 var _draggable: Draggable
+var _eyelids: Array[Sprite2D] = []
 
 func _ready() -> void:
 	_shadow = Sprite2D.new()
@@ -32,6 +33,7 @@ func _ready() -> void:
 	_build_parts()
 	_build_input()
 	_start_idle()
+	_blink_loop()
 	if use_game_state:
 		GameState.character_changed.connect(rebuild)
 
@@ -42,10 +44,22 @@ func rebuild() -> void:
 	_build_parts()
 
 func _build_parts() -> void:
+	var piel := _slot_color("piel")
 	_add_part("kid_body", _slot_color("ropa"), 0)
-	_add_part("kid_skin", _slot_color("piel"), 1)
+	_add_part("kid_skin", piel, 1)
 	_add_part("kid_hair", _slot_color("pelo"), 2)
 	_add_part("kid_face", Color.WHITE, 3)
+	# Párpados (para parpadear): elipses color piel sobre los ojos, ocultos por defecto.
+	_eyelids.clear()
+	for ex in [-17.0, 17.0]:
+		var lid := Sprite2D.new()
+		lid.texture = Placeholder.circle(40)
+		lid.modulate = piel
+		lid.position = Vector2(ex, -21)
+		lid.scale = Vector2(0.62, 0.0)
+		lid.z_index = 4
+		_rig.add_child(lid)
+		_eyelids.append(lid)
 
 func _add_part(shape: String, color: Color, z: int) -> void:
 	var s := Sprite2D.new()
@@ -95,3 +109,12 @@ func _wobble() -> void:
 	t.tween_property(_rig, "rotation", 0.07, 0.08)
 	t.tween_property(_rig, "rotation", -0.07, 0.12)
 	t.tween_property(_rig, "rotation", 0.0, 0.1)
+
+func _blink_loop() -> void:
+	while is_inside_tree():
+		await get_tree().create_timer(randf_range(2.5, 5.5)).timeout
+		for lid in _eyelids:
+			if is_instance_valid(lid):
+				var t := create_tween()
+				t.tween_property(lid, "scale:y", 0.34, 0.06)
+				t.tween_property(lid, "scale:y", 0.0, 0.09)

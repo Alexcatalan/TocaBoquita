@@ -55,6 +55,9 @@ func _style(p: CPUParticles2D, kind: String) -> void:
 			p.color = Color(1.0, 1.0, 1.0)
 			p.color_ramp = _confetti_ramp()
 			p.gravity = Vector2(0, 320)
+		"destello":
+			p.color = Color(1.0, 0.95, 0.7)
+			p.gravity = Vector2(0, -40)
 		_:
 			p.color = Color(1, 1, 1)
 			p.gravity = Vector2(0, 220)

@@ -78,8 +78,8 @@ func _apply_state(state: StateDef, animate: bool) -> void:
 	if animate:
 		_squash()
 		AudioManager.play_sfx(state.sound)
-		if state.particle != "":
-			ParticleFactory.spawn(state.particle, global_position)
+		# Cada toque "chispea": partícula declarada, o un destello sutil por defecto.
+		ParticleFactory.spawn(state.particle if state.particle != "" else "destello", global_position)
 	state_changed.emit(data.id, state.id)
 
 # Feedback inmediato: squash & stretch para que el toque "se sienta".
