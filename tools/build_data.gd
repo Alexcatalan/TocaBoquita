@@ -205,7 +205,8 @@ func _scene_hub() -> void:
 		exit(Vector2(420, 470), Vector2(220, 180), "parque", "Parque", GREEN),
 		exit(Vector2(840, 470), Vector2(220, 180), "fiesta", "Fiesta", PINK),
 	]
-	save_scene("hub", Color(0.95, 0.93, 0.98), [], [], doors, true, Vector2(640, 630))
+	# El hub es un menú: sin personaje (evita solaparse con las puertas).
+	save_scene("hub", Color(0.95, 0.93, 0.98), [], [], doors, false)
 
 func _scene_cocina() -> void:
 	var objs := [

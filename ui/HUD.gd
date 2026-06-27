@@ -23,26 +23,26 @@ func _build_top_buttons() -> void:
 	var bar := HBoxContainer.new()
 	bar.add_theme_constant_override("separation", 10)
 	bar.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	bar.position = Vector2(-280, 20)
+	bar.position = Vector2(-360, 20)
 	add_child(bar)
 
-	var home := _make_button("🏠")
+	var home := _make_button("Casa")
 	home.pressed.connect(func(): SceneRouter.go_to("hub"))
 	bar.add_child(home)
 
-	var wardrobe_btn := _make_button("👕")
+	var wardrobe_btn := _make_button("Ropa")
 	wardrobe_btn.pressed.connect(func(): _wardrobe.visible = not _wardrobe.visible)
 	bar.add_child(wardrobe_btn)
 
-	var mute := _make_button("🔊")
-	mute.pressed.connect(func(): mute.text = "🔇" if AudioManager.toggle_muted() else "🔊")
+	var mute := _make_button("Sonido")
+	mute.pressed.connect(func(): mute.text = "Silencio" if AudioManager.toggle_muted() else "Sonido")
 	bar.add_child(mute)
 
 func _make_button(txt: String) -> Button:
 	var b := Button.new()
 	b.text = txt
-	b.add_theme_font_size_override("font_size", 32)
-	b.custom_minimum_size = Vector2(72, 72)
+	b.add_theme_font_size_override("font_size", 26)
+	b.custom_minimum_size = Vector2(108, 72)
 	b.focus_mode = Control.FOCUS_NONE
 	return b
 

@@ -16,7 +16,7 @@ func _ready() -> void:
 	_overlay.add_child(bg)
 
 	var btn := Button.new()
-	btn.text = "▶  toca para empezar"
+	btn.text = "toca para empezar"
 	btn.add_theme_font_size_override("font_size", 48)
 	btn.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	btn.flat = true

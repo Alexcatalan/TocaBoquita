@@ -44,7 +44,7 @@ func _ready() -> void:
 		vbox.add_child(row)
 
 	var close := Button.new()
-	close.text = "✓ listo"
+	close.text = "Listo"
 	close.add_theme_font_size_override("font_size", 28)
 	close.focus_mode = Control.FOCUS_NONE
 	close.pressed.connect(hide)
