@@ -9,8 +9,11 @@ extends Resource
 ## Fondo. Si es null, se usa un color plano (background_color).
 @export var background: Texture2D
 
-## Color de fondo cuando no hay textura (placeholder pastel).
+## Color de fondo cuando no hay textura (placeholder pastel). Se usa como "pared".
 @export var background_color: Color = Color(0.96, 0.93, 0.88)
+
+## Color del "piso" (banda inferior). Alpha 0 = derivar del fondo.
+@export var floor_color: Color = Color(0, 0, 0, 0)
 
 ## Música ambiente del escenario.
 @export var ambient_music: AudioStream

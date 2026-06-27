@@ -234,7 +234,7 @@ func _scene_cocina() -> void:
 	var zones := [
 		dz("olla", Vector2(430, 280), Vector2(200, 200), ["manzana", "pan", "zanahoria"], "estrellas", 500.0, "olla", "llena"),
 	]
-	save_scene("cocina", CREAM, objs, zones, [], true, Vector2(640, 620))
+	save_scene("cocina", CREAM, objs, zones, [], true, Vector2(620, 560))
 
 func _scene_dormitorio() -> void:
 	var objs := [
@@ -250,7 +250,7 @@ func _scene_dormitorio() -> void:
 	var zones := [
 		dz("cama", Vector2(280, 380), Vector2(280, 200), ["oso"], "corazones", 300.0, "cama", "dormido"),
 	]
-	save_scene("dormitorio", LAVENDER, objs, zones, [], true, Vector2(640, 640))
+	save_scene("dormitorio", LAVENDER, objs, zones, [], true, Vector2(640, 560))
 
 func _scene_bano() -> void:
 	var objs := [
@@ -265,7 +265,7 @@ func _scene_bano() -> void:
 	var zones := [
 		dz("tina", Vector2(300, 400), Vector2(280, 200), ["pato"], "burbujas", 600.0, "tina", "burbujas"),
 	]
-	save_scene("bano", Color(0.85, 0.94, 0.98), objs, zones, [], true, Vector2(680, 640))
+	save_scene("bano", Color(0.85, 0.94, 0.98), objs, zones, [], true, Vector2(660, 560))
 
 func _scene_parque() -> void:
 	var objs := [
@@ -277,7 +277,7 @@ func _scene_parque() -> void:
 		placed("mascota", Vector2(560, 580)),
 		placed("pelota", Vector2(380, 580)),
 	]
-	save_scene("parque", Color(0.82, 0.95, 0.80), objs, [], [], true, Vector2(700, 640))
+	save_scene("parque", Color(0.82, 0.95, 0.80), objs, [], [], true, Vector2(790, 560))
 
 func _scene_fiesta() -> void:
 	var objs := [
@@ -289,4 +289,4 @@ func _scene_fiesta() -> void:
 		placed("canon", Vector2(640, 600)),
 		placed("gorro", Vector2(640, 200)),
 	]
-	save_scene("fiesta", Color(0.99, 0.90, 0.94), objs, [], [], true, Vector2(640, 660))
+	save_scene("fiesta", Color(0.99, 0.90, 0.94), objs, [], [], true, Vector2(1120, 560))

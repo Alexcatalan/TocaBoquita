@@ -74,11 +74,13 @@ func _test_character() -> void:
 	print("- Character")
 	var ch := Character.new()
 	add_child(ch)
-	var sprites := 0
+	var parts := 0
 	for c in ch.get_children():
-		if c is Sprite2D:
-			sprites += 1
-	_check(sprites == 3, "personaje placeholder tiene 3 capas (got %d)" % sprites)
+		if c is Node2D and c.get_child_count() > 0:  # el _rig con las capas
+			for p in c.get_children():
+				if p is Sprite2D:
+					parts += 1
+	_check(parts == 4, "personaje tiene 4 capas (cuerpo/piel/pelo/cara) (got %d)" % parts)
 	ch.queue_free()
 
 func _test_scene_engine() -> void:

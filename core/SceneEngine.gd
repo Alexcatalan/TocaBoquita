@@ -48,6 +48,11 @@ func _build_background() -> void:
 	var layer := CanvasLayer.new()
 	layer.layer = -10
 	add_child(layer)
+	var root := Control.new()
+	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(root)
+
 	if data.background:
 		var s := TextureRect.new()
 		s.texture = data.background
@@ -55,13 +60,75 @@ func _build_background() -> void:
 		s.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		s.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		s.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		layer.add_child(s)
-	else:
-		var bg := ColorRect.new()
-		bg.color = data.background_color
-		bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		layer.add_child(bg)
+		root.add_child(s)
+		return
+
+	var wall_col := data.background_color
+	var floor_col := data.floor_color if data.floor_color.a > 0.0 else wall_col.darkened(0.12)
+
+	# Pared con degradado vertical suave.
+	var wall := TextureRect.new()
+	wall.texture = _v_gradient(wall_col.lightened(0.06), wall_col)
+	wall.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	wall.stretch_mode = TextureRect.STRETCH_SCALE
+	wall.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(wall)
+
+	# Luz suave radial arriba-centro.
+	var glow := TextureRect.new()
+	glow.texture = _radial(Color(1, 1, 1, 0.22))
+	glow.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	glow.size = Vector2(900, 520)
+	glow.position = Vector2(190, -120)
+	glow.stretch_mode = TextureRect.STRETCH_SCALE
+	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(glow)
+
+	# Piso (banda inferior) + línea de horizonte.
+	var ground := ColorRect.new()
+	ground.color = floor_col
+	ground.anchor_top = 0.66
+	ground.anchor_right = 1.0
+	ground.anchor_bottom = 1.0
+	ground.offset_left = 0
+	ground.offset_right = 0
+	ground.offset_bottom = 0
+	ground.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(ground)
+
+	var horizon := ColorRect.new()
+	horizon.color = Color(1, 1, 1, 0.12)
+	horizon.anchor_top = 0.66
+	horizon.anchor_right = 1.0
+	horizon.offset_top = -3
+	horizon.offset_bottom = 0
+	horizon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(horizon)
+
+func _v_gradient(top: Color, bottom: Color) -> GradientTexture2D:
+	var g := Gradient.new()
+	g.set_color(0, top)
+	g.set_color(1, bottom)
+	var t := GradientTexture2D.new()
+	t.gradient = g
+	t.width = 8
+	t.height = 256
+	t.fill_from = Vector2(0, 0)
+	t.fill_to = Vector2(0, 1)
+	return t
+
+func _radial(center: Color) -> GradientTexture2D:
+	var g := Gradient.new()
+	g.set_color(0, center)
+	g.set_color(1, Color(center.r, center.g, center.b, 0.0))
+	var t := GradientTexture2D.new()
+	t.gradient = g
+	t.width = 256
+	t.height = 256
+	t.fill = GradientTexture2D.FILL_RADIAL
+	t.fill_from = Vector2(0.5, 0.5)
+	t.fill_to = Vector2(1.0, 0.5)
+	return t
 
 func _build_objects() -> void:
 	for po in data.placed_objects:

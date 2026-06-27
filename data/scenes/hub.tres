@@ -49,6 +49,7 @@ color = Color(1, 0.7, 0.8, 1)
 script = ExtResource("4_8jmvd")
 id = "hub"
 background_color = Color(0.95, 0.93, 0.98, 1)
+floor_color = Color(0, 0, 0, 0)
 placed_objects = Array[ExtResource("3_cwmb5")]([])
 drop_zones = Array[ExtResource("1_h16b0")]([])
 exits = Array[ExtResource("2_l2plo")]([SubResource("Resource_fq0sm"), SubResource("Resource_7jcdl"), SubResource("Resource_mepsm"), SubResource("Resource_as5c6"), SubResource("Resource_3hk4y")])

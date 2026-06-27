@@ -1,96 +1,97 @@
-## Personaje compuesto por Sprite2D apilados según CharacterData.layers (z_index por capa).
-## Arrastrable. El Wardrobe (Fase 4) intercambiará capas por slot.
+## Personaje jugable: niño/a por capas (cuerpo, piel, pelo, cara) dibujadas con Art.
+## Arrastrable, con sombra de contacto, respiración idle y wobble al levantarlo.
+## El Wardrobe (GameState) recolorea los slots y el personaje se reconstruye solo.
 class_name Character
 extends Node2D
 
-## Datos del personaje. Si es null, se construye un placeholder por defecto.
+## Colores/base por slot (opcional). Si null, se usan colores por defecto.
 @export var data: CharacterData
 
-## Si true, aplica overrides de apariencia desde GameState y se reconstruye con el Wardrobe.
+## Si true, aplica overrides de apariencia desde GameState y escucha cambios del Wardrobe.
 @export var use_game_state: bool = false
 
+const DEF := {
+	"piel": Color(1.0, 0.86, 0.74),
+	"pelo": Color(0.45, 0.32, 0.26),
+	"ropa": Color(0.66, 0.82, 0.95),
+}
+
+var _rig: Node2D
+var _shadow: Sprite2D
 var _area: Area2D
 var _draggable: Draggable
 
 func _ready() -> void:
-	_build_layers()
+	_shadow = Sprite2D.new()
+	_shadow.texture = Art.shadow(150.0)
+	_shadow.position = Vector2(0, 116)
+	add_child(_shadow)
+
+	_rig = Node2D.new()
+	add_child(_rig)
+	_build_parts()
 	_build_input()
+	_start_idle()
 	if use_game_state:
 		GameState.character_changed.connect(rebuild)
 
-## Reconstruye solo las capas visuales (mantiene el área de arrastre).
+## Reconstruye las capas (tras un cambio en el Wardrobe).
 func rebuild() -> void:
-	for c in get_children():
-		if c is Sprite2D:
-			c.queue_free()
-	_build_layers()
+	for c in _rig.get_children():
+		c.queue_free()
+	_build_parts()
 
-func _build_layers() -> void:
-	var layers: Array = data.layers.duplicate() if data else _default_layers()
-	layers.sort_custom(func(a, b): return a.z_index < b.z_index)
-	for layer in layers:
-		var s := Sprite2D.new()
-		s.texture = layer.texture if layer.texture else _placeholder_for(layer.slot)
-		s.modulate = _resolved_modulate(layer)
-		s.z_index = layer.z_index
-		s.position = _slot_offset(layer.slot)
-		add_child(s)
+func _build_parts() -> void:
+	_add_part("kid_body", _slot_color("ropa"), 0)
+	_add_part("kid_skin", _slot_color("piel"), 1)
+	_add_part("kid_hair", _slot_color("pelo"), 2)
+	_add_part("kid_face", Color.WHITE, 3)
 
-# Aplica override de color desde el Wardrobe (GameState) si existe para ese slot.
-func _resolved_modulate(layer: CharacterLayer) -> Color:
-	if use_game_state and GameState.character_config.has(layer.slot):
-		var cfg: Dictionary = GameState.character_config[layer.slot]
+func _add_part(shape: String, color: Color, z: int) -> void:
+	var s := Sprite2D.new()
+	s.texture = Art.make(shape, color)
+	s.z_index = z
+	_rig.add_child(s)
+
+func _slot_color(slot: String) -> Color:
+	if use_game_state and GameState.character_config.has(slot):
+		var cfg: Dictionary = GameState.character_config[slot]
 		if cfg.has("modulate"):
 			var m: Array = cfg["modulate"]
 			return Color(m[0], m[1], m[2])
-	return layer.modulate
+	if data:
+		for l in data.layers:
+			if l.slot == slot:
+				return l.modulate
+	return DEF.get(slot, Color.WHITE)
 
 func _build_input() -> void:
 	_area = Area2D.new()
 	add_child(_area)
 	var col := CollisionShape2D.new()
 	var shape := CapsuleShape2D.new()
-	shape.radius = 90
-	shape.height = 320
+	shape.radius = 70
+	shape.height = 230
 	col.shape = shape
-	col.position = Vector2(0, -40)
+	col.position = Vector2(0, 20)
 	_area.add_child(col)
 
 	_draggable = Draggable.new()
 	add_child(_draggable)
 	_draggable.setup(self, _area)
+	_draggable.drag_started.connect(_wobble)
 
-# --- Placeholders por defecto: una "niña" simple (cuerpo + cabeza). ---
+# Respiración + leve flotación: el personaje "vive".
+func _start_idle() -> void:
+	var breath := create_tween().set_loops().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	breath.tween_property(_rig, "scale", Vector2(1.0, 1.03), 1.2)
+	breath.tween_property(_rig, "scale", Vector2(1.0, 1.0), 1.2)
+	var bob := create_tween().set_loops().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	bob.tween_property(_rig, "position:y", -5.0, 1.2)
+	bob.tween_property(_rig, "position:y", 0.0, 1.2)
 
-func _default_layers() -> Array:
-	var body := CharacterLayer.new()
-	body.slot = "ropa"
-	body.modulate = Color(0.66, 0.82, 0.95)  # azul pastel
-	body.z_index = 0
-	var head := CharacterLayer.new()
-	head.slot = "piel"
-	head.modulate = Color(1.0, 0.86, 0.74)  # piel pastel
-	head.z_index = 1
-	var hair := CharacterLayer.new()
-	hair.slot = "pelo"
-	hair.modulate = Color(0.45, 0.32, 0.26)  # café
-	hair.z_index = 2
-	return [body, head, hair]
-
-func _placeholder_for(slot: String) -> Texture2D:
-	match slot:
-		"piel":
-			return Placeholder.circle(150)
-		"pelo":
-			return Placeholder.rounded_rect(Vector2i(170, 110), 55)
-		_:
-			return Placeholder.rounded_rect(Vector2i(150, 200), 60)
-
-func _slot_offset(slot: String) -> Vector2:
-	match slot:
-		"piel":
-			return Vector2(0, -150)
-		"pelo":
-			return Vector2(0, -200)
-		_:
-			return Vector2(0, 0)
+func _wobble() -> void:
+	var t := create_tween().set_trans(Tween.TRANS_SINE)
+	t.tween_property(_rig, "rotation", 0.07, 0.08)
+	t.tween_property(_rig, "rotation", -0.07, 0.12)
+	t.tween_property(_rig, "rotation", 0.0, 0.1)

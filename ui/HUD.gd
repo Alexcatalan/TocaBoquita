@@ -51,13 +51,26 @@ func _build_inventory() -> void:
 	_inventory_panel = Panel.new()
 	_inventory_panel.position = SceneEngine.INVENTORY_RECT.position
 	_inventory_panel.size = SceneEngine.INVENTORY_RECT.size
-	_inventory_panel.modulate = Color(1, 1, 1, 0.5)
 	_inventory_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(1, 1, 1, 0.32)
+	sb.set_corner_radius_all(20)
+	sb.set_border_width_all(2)
+	sb.border_color = Color(1, 1, 1, 0.55)
+	_inventory_panel.add_theme_stylebox_override("panel", sb)
 	add_child(_inventory_panel)
+
+	var tag := Label.new()
+	tag.text = "mochila"
+	tag.add_theme_font_size_override("font_size", 18)
+	tag.add_theme_color_override("font_color", Color(0.35, 0.35, 0.4, 0.8))
+	tag.position = SceneEngine.INVENTORY_RECT.position + Vector2(14, 4)
+	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(tag)
 
 	_inventory_box = HBoxContainer.new()
 	_inventory_box.add_theme_constant_override("separation", 8)
-	_inventory_box.position = SceneEngine.INVENTORY_RECT.position + Vector2(12, 12)
+	_inventory_box.position = SceneEngine.INVENTORY_RECT.position + Vector2(14, 28)
 	add_child(_inventory_box)
 
 ## Reconstruye el inventario visible. Llamado en cada cambio y al cambiar de escena.

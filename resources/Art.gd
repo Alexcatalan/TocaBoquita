@@ -185,6 +185,10 @@ static func _draw(img: Image, shape: String, c: Color) -> void:
 		"cannon_fire": _cannon(img, c, true)
 		"hat": _hat(img, c)
 		"door": _door(img, c)
+		"kid_body": _kid_body(img, c)
+		"kid_skin": _kid_skin(img, c)
+		"kid_hair": _kid_hair(img, c)
+		"kid_face": _kid_face(img, c)
 		_: _blob(img, c)
 
 static func _blob(img: Image, c: Color) -> void:
@@ -531,3 +535,46 @@ static func _hat(img: Image, c: Color) -> void:
 	_seg(img, 92, 162, 148, 162, 6, c.lightened(0.18))
 	_circle(img, 120, 50, 13, Color(1, 1, 1))
 	_ellipse(img, 120, 190, 44, 10, c.darkened(0.12))
+
+# ---- Personaje (capas alineadas en el mismo lienzo 240; se apilan por z) ----
+
+static func _kid_body(img: Image, c: Color) -> void:
+	_rr(img, 105, 210, 26, 46, 12, c.darkened(0.08))   # pierna izq
+	_rr(img, 135, 210, 26, 46, 12, c.darkened(0.08))   # pierna der
+	_ellipse(img, 104, 236, 18, 9, Color(0.34, 0.31, 0.37))  # zapato
+	_ellipse(img, 136, 236, 18, 9, Color(0.34, 0.31, 0.37))
+	_seg(img, 84, 138, 66, 186, 21, c)                 # brazo izq
+	_seg(img, 156, 138, 174, 186, 21, c)               # brazo der
+	_rr(img, 120, 158, 92, 98, 36, c)                  # torso
+	_rr(img, 120, 122, 58, 14, 7, c.lightened(0.1))    # cuello de la ropa
+
+static func _kid_skin(img: Image, c: Color) -> void:
+	_circle(img, 64, 188, 13, c)                        # mano izq
+	_circle(img, 176, 188, 13, c)                       # mano der
+	_rr(img, 120, 126, 26, 22, 8, c)                    # cuello
+	_circle(img, 76, 96, 10, c)                         # oreja izq
+	_circle(img, 164, 96, 10, c)                        # oreja der
+	_circle(img, 120, 94, 46, c)                        # cabeza
+
+static func _kid_hair(img: Image, c: Color) -> void:
+	_ellipse(img, 120, 58, 56, 34, c)
+	_ellipse(img, 72, 78, 14, 24, c)
+	_ellipse(img, 168, 78, 14, 24, c)
+	_circle(img, 96, 84, 13, c)                         # flequillo
+	_circle(img, 120, 86, 14, c)
+	_circle(img, 144, 84, 13, c)
+	_circle(img, 120, 36, 11, c)                        # mechón
+
+static func _kid_face(img: Image, _c: Color) -> void:
+	var dark := Color(0.26, 0.2, 0.22)
+	_circle(img, 103, 99, 9, Color.WHITE)
+	_circle(img, 137, 99, 9, Color.WHITE)
+	_circle(img, 105, 101, 5, dark)
+	_circle(img, 139, 101, 5, dark)
+	_circle(img, 103, 98, 2, Color.WHITE)
+	_circle(img, 137, 98, 2, Color.WHITE)
+	_circle(img, 88, 114, 8, Color(1, 0.6, 0.62, 0.45))   # cachetes
+	_circle(img, 152, 114, 8, Color(1, 0.6, 0.62, 0.45))
+	for i: int in 9:                                       # sonrisa
+		var t := i / 8.0
+		_circle(img, lerpf(106, 134, t), 116 + sin(PI * t) * 8.0, 2.2, dark)
