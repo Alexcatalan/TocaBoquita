@@ -5,10 +5,13 @@ class_name InteractiveObject
 extends Node2D
 
 signal state_changed(object_id: String, state_id: String)
-signal dropped_on(zone_id: String, object_id: String)  # Fase 2/3 (DropZone)
+signal dropped_on_zone(zone: DropZone, object: InteractiveObject)  # soltado sobre zona válida
+signal dropped(object: InteractiveObject, global_pos: Vector2)     # soltado en cualquier lado
 
 ## Datos del objeto. Asignar ANTES de add_child (o desde el .tscn / SceneEngine).
 @export var data: ObjectData
+
+var origin: Vector2  # posición original (para volver tras un drag)
 
 var _sprite: Sprite2D
 var _area: Area2D
@@ -18,6 +21,7 @@ var _draggable: Draggable
 var _placeholder: Texture2D
 
 func _ready() -> void:
+	origin = position
 	_build()
 	if data:
 		_apply_data()
@@ -40,6 +44,7 @@ func _build() -> void:
 	add_child(_draggable)
 	_draggable.setup(self, _area)
 	_draggable.tapped.connect(_on_tapped)
+	_draggable.dropped.connect(_on_dropped)
 
 func _apply_data() -> void:
 	_draggable.can_drag = data.draggable
@@ -65,6 +70,8 @@ func _apply_state(state: StateDef, animate: bool) -> void:
 	if animate:
 		_squash()
 		AudioManager.play_sfx(state.sound)
+		if state.particle != "":
+			ParticleFactory.spawn(state.particle, global_position)
 	state_changed.emit(data.id, state.id)
 
 # Feedback inmediato: squash & stretch para que el toque "se sienta".
@@ -72,3 +79,27 @@ func _squash() -> void:
 	var t := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	scale = Vector2(1.12, 0.88)
 	t.tween_property(self, "scale", Vector2.ONE, 0.28)
+
+## Fuerza un estado por id (para restaurar desde GameState). No reproduce sonido.
+func force_state(state_id: String) -> void:
+	if _machine == null:
+		return
+	_machine.set_current(state_id)
+	_apply_state(_machine.current(), false)
+
+## Vuelve suavemente a la posición original (tras soltarlo fuera de una zona).
+func return_to_origin() -> void:
+	var t := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	t.tween_property(self, "position", origin, 0.3)
+
+## Detección de drop: tras soltar, busca una DropZone válida solapada y avisa.
+func _on_dropped(global_pos: Vector2) -> void:
+	dropped.emit(self, global_pos)
+	_check_drop_zones()
+
+func _check_drop_zones() -> void:
+	await get_tree().physics_frame  # deja que la física actualice solapamientos
+	for a in _area.get_overlapping_areas():
+		if a is DropZone and a.accepts(data.id):
+			dropped_on_zone.emit(a, self)
+			return

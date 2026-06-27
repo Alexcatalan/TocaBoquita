@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="SceneData" load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://resources/DropZoneDef.gd" id="1_fcotw"]
+[ext_resource type="Script" path="res://resources/SceneExit.gd" id="2_vt4y7"]
+[ext_resource type="Script" path="res://resources/PlacedObject.gd" id="3_txp17"]
+[ext_resource type="Resource" path="res://data/objects/columpio.tres" id="4_agges"]
+[ext_resource type="Resource" path="res://data/objects/tobogan.tres" id="5_fh5ti"]
+[ext_resource type="Resource" path="res://data/objects/charco.tres" id="6_y5p7x"]
+[ext_resource type="Resource" path="res://data/objects/arbol.tres" id="7_i0emc"]
+[ext_resource type="Resource" path="res://data/objects/flor.tres" id="8_2iao1"]
+[ext_resource type="Resource" path="res://data/objects/mascota.tres" id="9_whd5m"]
+[ext_resource type="Resource" path="res://data/objects/pelota.tres" id="10_4w5mv"]
+[ext_resource type="Script" path="res://resources/SceneData.gd" id="11_e7ojc"]
+
+[sub_resource type="Resource" id="Resource_3gsa7"]
+script = ExtResource("3_txp17")
+object_data = ExtResource("4_agges")
+position = Vector2(220, 360)
+scale = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_7cl2s"]
+script = ExtResource("3_txp17")
+object_data = ExtResource("5_fh5ti")
+position = Vector2(450, 350)
+scale = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_rxvsk"]
+script = ExtResource("3_txp17")
+object_data = ExtResource("6_y5p7x")
+position = Vector2(700, 520)
+scale = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_h7d4f"]
+script = ExtResource("3_txp17")
+object_data = ExtResource("7_i0emc")
+position = Vector2(1050, 300)
+scale = Vector2(1.3, 1.5)
+
+[sub_resource type="Resource" id="Resource_lr7a3"]
+script = ExtResource("3_txp17")
+object_data = ExtResource("8_2iao1")
+position = Vector2(900, 560)
+scale = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_epmsa"]
+script = ExtResource("3_txp17")
+object_data = ExtResource("9_whd5m")
+position = Vector2(560, 580)
+scale = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_1k1il"]
+script = ExtResource("3_txp17")
+object_data = ExtResource("10_4w5mv")
+position = Vector2(380, 580)
+scale = Vector2(1, 1)
+
+[resource]
+script = ExtResource("11_e7ojc")
+id = "parque"
+background_color = Color(0.82, 0.95, 0.8, 1)
+placed_objects = Array[ExtResource("3_txp17")]([SubResource("Resource_3gsa7"), SubResource("Resource_7cl2s"), SubResource("Resource_rxvsk"), SubResource("Resource_h7d4f"), SubResource("Resource_lr7a3"), SubResource("Resource_epmsa"), SubResource("Resource_1k1il")])
+drop_zones = Array[ExtResource("1_fcotw")]([])
+exits = Array[ExtResource("2_vt4y7")]([])
+spawn_player = true
+player_position = Vector2(700, 640)

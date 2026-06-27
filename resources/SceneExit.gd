@@ -10,3 +10,9 @@ extends Resource
 
 ## Id de la escena destino (SceneData.id).
 @export var target_scene_id: String = ""
+
+## Etiqueta visible de la "puerta" (ej: "Cocina"). Opcional.
+@export var label: String = ""
+
+## Color de la puerta placeholder.
+@export var color: Color = Color(0.82, 0.86, 0.95)

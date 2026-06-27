@@ -14,7 +14,11 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+GameState="*res://autoloads/GameState.gd"
 AudioManager="*res://autoloads/AudioManager.gd"
+ParticleFactory="*res://core/ParticleFactory.gd"
+SaveManager="*res://autoloads/SaveManager.gd"
+SceneRouter="*res://autoloads/SceneRouter.gd"
 
 [display]
 

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ObjectData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://resources/ObjectData.gd" id="1_3gihp"]
+[ext_resource type="Script" path="res://resources/StateDef.gd" id="2_bkbkq"]
+
+[sub_resource type="Resource" id="Resource_u4g5i"]
+script = ExtResource("2_bkbkq")
+id = "verano"
+modulate = Color(0.62, 0.86, 0.62, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[sub_resource type="Resource" id="Resource_jcqtm"]
+script = ExtResource("2_bkbkq")
+id = "otono"
+modulate = Color(1, 0.62, 0.32, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[resource]
+script = ExtResource("1_3gihp")
+id = "arbol"
+draggable = false
+portable = false
+states = Array[ExtResource("2_bkbkq")]([SubResource("Resource_u4g5i"), SubResource("Resource_jcqtm")])
+drop_targets = Array[String]([])
+initial_state = "verano"

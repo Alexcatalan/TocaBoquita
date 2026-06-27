@@ -19,6 +19,13 @@ func current() -> StateDef:
 		return null
 	return states[index]
 
+## Fija el estado actual por id (sin avanzar). Usado para restaurar desde persistencia.
+func set_current(state_id: String) -> void:
+	for i in states.size():
+		if states[i].id == state_id:
+			index = i
+			return
+
 ## Avanza al siguiente estado (por next_state si está definido; si no, cicla) y lo devuelve.
 func advance() -> StateDef:
 	if states.is_empty():

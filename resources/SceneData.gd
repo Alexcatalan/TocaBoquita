@@ -18,5 +18,14 @@ extends Resource
 ## Objetos colocados (objeto + posición).
 @export var placed_objects: Array[PlacedObject] = []
 
+## Zonas que aceptan objetos arrastrados (drag & drop).
+@export var drop_zones: Array[DropZoneDef] = []
+
 ## Zonas de salida a otras escenas.
 @export var exits: Array[SceneExit] = []
+
+## ¿Aparece el personaje jugable en esta escena?
+@export var spawn_player: bool = true
+
+## Posición inicial del personaje jugable.
+@export var player_position: Vector2 = Vector2(640, 540)

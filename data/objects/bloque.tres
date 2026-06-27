@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ObjectData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://resources/ObjectData.gd" id="1_6kpyk"]
+[ext_resource type="Script" path="res://resources/StateDef.gd" id="2_qqvsk"]
+
+[sub_resource type="Resource" id="Resource_8fwyi"]
+script = ExtResource("2_qqvsk")
+id = "bloque"
+modulate = Color(0.95, 0.45, 0.45, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[resource]
+script = ExtResource("1_6kpyk")
+id = "bloque"
+draggable = true
+portable = true
+states = Array[ExtResource("2_qqvsk")]([SubResource("Resource_8fwyi")])
+drop_targets = Array[String]([])
+initial_state = "bloque"

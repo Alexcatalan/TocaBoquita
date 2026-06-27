@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ObjectData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://resources/ObjectData.gd" id="1_03j6g"]
+[ext_resource type="Script" path="res://resources/StateDef.gd" id="2_vx500"]
+
+[sub_resource type="Resource" id="Resource_b2wlh"]
+script = ExtResource("2_vx500")
+id = "normal"
+modulate = Color(0.7, 0.85, 1, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[sub_resource type="Resource" id="Resource_076a1"]
+script = ExtResource("2_vx500")
+id = "empanado"
+modulate = Color(0.78, 0.78, 0.84, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[resource]
+script = ExtResource("1_03j6g")
+id = "espejo"
+draggable = false
+portable = false
+states = Array[ExtResource("2_vx500")]([SubResource("Resource_b2wlh"), SubResource("Resource_076a1")])
+drop_targets = Array[String]([])
+initial_state = "normal"

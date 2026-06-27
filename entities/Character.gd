@@ -6,12 +6,24 @@ extends Node2D
 ## Datos del personaje. Si es null, se construye un placeholder por defecto.
 @export var data: CharacterData
 
+## Si true, aplica overrides de apariencia desde GameState y se reconstruye con el Wardrobe.
+@export var use_game_state: bool = false
+
 var _area: Area2D
 var _draggable: Draggable
 
 func _ready() -> void:
 	_build_layers()
 	_build_input()
+	if use_game_state:
+		GameState.character_changed.connect(rebuild)
+
+## Reconstruye solo las capas visuales (mantiene el área de arrastre).
+func rebuild() -> void:
+	for c in get_children():
+		if c is Sprite2D:
+			c.queue_free()
+	_build_layers()
 
 func _build_layers() -> void:
 	var layers: Array = data.layers.duplicate() if data else _default_layers()
@@ -19,10 +31,19 @@ func _build_layers() -> void:
 	for layer in layers:
 		var s := Sprite2D.new()
 		s.texture = layer.texture if layer.texture else _placeholder_for(layer.slot)
-		s.modulate = layer.modulate
+		s.modulate = _resolved_modulate(layer)
 		s.z_index = layer.z_index
 		s.position = _slot_offset(layer.slot)
 		add_child(s)
+
+# Aplica override de color desde el Wardrobe (GameState) si existe para ese slot.
+func _resolved_modulate(layer: CharacterLayer) -> Color:
+	if use_game_state and GameState.character_config.has(layer.slot):
+		var cfg: Dictionary = GameState.character_config[layer.slot]
+		if cfg.has("modulate"):
+			var m: Array = cfg["modulate"]
+			return Color(m[0], m[1], m[2])
+	return layer.modulate
 
 func _build_input() -> void:
 	_area = Area2D.new()
