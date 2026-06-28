@@ -12,18 +12,78 @@ const W := SIZE * SS
 
 static var _cache: Dictionary = {}
 
-static func make(shape: String, color: Color) -> Texture2D:
-	var key := shape + "|" + color.to_html()
+const OUTLINE := Color(0.26, 0.22, 0.24)
+const BAKED_DIR := "res://assets/generated"
+
+static func make(shape: String, color: Color, outline := true) -> Texture2D:
+	var key := shape + "|" + color.to_html() + ("|o" if outline else "")
 	if _cache.has(key):
 		return _cache[key]
+	# Preferir PNG horneado (runtime instantáneo); si no existe, generar (editor/fallback).
+	var tex: Texture2D
+	var path := baked_path(shape, color, outline)
+	if ResourceLoader.exists(path):
+		tex = load(path)
+	else:
+		tex = ImageTexture.create_from_image(generate_image(shape, color, outline))
+	_cache[key] = tex
+	return tex
+
+static func baked_path(shape: String, color: Color, outline: bool) -> String:
+	return "%s/%s__%s%s.png" % [BAKED_DIR, shape, color.to_html(false), "_o" if outline else "_n"]
+
+## Genera la Image (sin cache). La usa el horneador y el fallback en runtime.
+static func generate_image(shape: String, color: Color, outline: bool) -> Image:
 	var img := Image.create(W, W, false, Image.FORMAT_RGBA8)
 	img.fill(Color(0, 0, 0, 0))
 	_draw(img, shape, color)
 	img.resize(SIZE, SIZE, Image.INTERPOLATE_LANCZOS)
 	_shade(img)
-	var tex := ImageTexture.create_from_image(img)
-	_cache[key] = tex
-	return tex
+	if outline:
+		img = _outline(img, OUTLINE, 3)
+	return img
+
+# Contorno tipo "sticker": dilatación de la silueta en color oscuro detrás del dibujo.
+# Opera sobre buffers de bytes (rápido, sin get/set_pixel por pixel).
+static func _outline(src: Image, col: Color, r: int) -> Image:
+	var w := src.get_width()
+	var h := src.get_height()
+	var d := src.get_data()
+	var n := w * h
+	var hm := PackedByteArray()
+	hm.resize(n)
+	for y: int in range(h):
+		var row := y * w
+		for x: int in range(w):
+			var m := 0
+			var lo := maxi(0, x - r)
+			var hi := mini(w - 1, x + r)
+			for xx: int in range(lo, hi + 1):
+				var av := d[(row + xx) * 4 + 3]
+				if av > m:
+					m = av
+			hm[row + x] = m
+	var out := PackedByteArray()
+	out.resize(n * 4)
+	var cr := int(col.r * 255.0)
+	var cg := int(col.g * 255.0)
+	var cb := int(col.b * 255.0)
+	for y: int in range(h):
+		var lo := maxi(0, y - r)
+		var hi := mini(h - 1, y + r)
+		for x: int in range(w):
+			var m := 0
+			for yy: int in range(lo, hi + 1):
+				var av := hm[yy * w + x]
+				if av > m:
+					m = av
+			var idx := (y * w + x) * 4
+			var oa := d[idx + 3]
+			if oa >= 128:
+				out[idx] = d[idx]; out[idx + 1] = d[idx + 1]; out[idx + 2] = d[idx + 2]; out[idx + 3] = oa
+			elif m >= 80:
+				out[idx] = cr; out[idx + 1] = cg; out[idx + 2] = cb; out[idx + 3] = m
+	return Image.create_from_data(w, h, false, Image.FORMAT_RGBA8, out)
 
 ## Sombra de contacto suave (elipse) para apoyar objetos/personaje en el suelo.
 static func shadow(width := 180.0) -> Texture2D:

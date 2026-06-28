@@ -48,7 +48,7 @@ func _build_parts() -> void:
 	_add_part("kid_body", _slot_color("ropa"), 0)
 	_add_part("kid_skin", piel, 1)
 	_add_part("kid_hair", _slot_color("pelo"), 2)
-	_add_part("kid_face", Color.WHITE, 3)
+	_add_part("kid_face", Color.WHITE, 3, false)
 	# Accesorio opcional (gafas) desde el Wardrobe.
 	if use_game_state and GameState.character_config.has("accesorio"):
 		var acc: Dictionary = GameState.character_config["accesorio"]
@@ -57,7 +57,7 @@ func _build_parts() -> void:
 			if acc.has("modulate"):
 				var m: Array = acc["modulate"]
 				ac = Color(m[0], m[1], m[2])
-			_add_part("kid_glasses", ac, 4)
+			_add_part("kid_glasses", ac, 4, false)
 	# Párpados (para parpadear): elipses color piel sobre los ojos, ocultos por defecto.
 	_eyelids.clear()
 	for ex in [-17.0, 17.0]:
@@ -70,9 +70,9 @@ func _build_parts() -> void:
 		_rig.add_child(lid)
 		_eyelids.append(lid)
 
-func _add_part(shape: String, color: Color, z: int) -> void:
+func _add_part(shape: String, color: Color, z: int, outline := true) -> void:
 	var s := Sprite2D.new()
-	s.texture = Art.make(shape, color)
+	s.texture = Art.make(shape, color, outline)
 	s.z_index = z
 	_rig.add_child(s)
 
