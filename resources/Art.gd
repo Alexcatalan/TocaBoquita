@@ -198,6 +198,7 @@ static func _draw(img: Image, shape: String, c: Color) -> void:
 		"kid_skin": _kid_skin(img, c)
 		"kid_hair": _kid_hair(img, c)
 		"kid_face": _kid_face(img, c)
+		"kid_glasses": _kid_glasses(img, c)
 		_: _blob(img, c)
 
 static func _blob(img: Image, c: Color) -> void:
@@ -657,6 +658,16 @@ static func _kid_hair(img: Image, c: Color) -> void:
 	_circle(img, 120, 86, 14, c)
 	_circle(img, 144, 84, 13, c)
 	_circle(img, 120, 36, 11, c)                        # mechón
+
+static func _kid_glasses(img: Image, c: Color) -> void:
+	# Lentes sobre los ojos (103,99) y (137,99).
+	_circle(img, 103, 99, 15, c)
+	_circle(img, 137, 99, 15, c)
+	_circle(img, 103, 99, 12, Color(0.8, 0.92, 1.0, 0.35))
+	_circle(img, 137, 99, 12, Color(0.8, 0.92, 1.0, 0.35))
+	_seg(img, 116, 99, 124, 99, 4, c)
+	_seg(img, 88, 98, 72, 94, 4, c)
+	_seg(img, 152, 98, 168, 94, 4, c)
 
 static func _kid_face(img: Image, _c: Color) -> void:
 	var dark := Color(0.26, 0.2, 0.22)

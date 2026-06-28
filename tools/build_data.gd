@@ -293,7 +293,10 @@ func _scene_parque() -> void:
 		placed("mascota", Vector2(560, 580)),
 		placed("pelota", Vector2(380, 580)),
 	]
-	save_scene("parque", Color(0.82, 0.95, 0.80), objs, [], [], true, Vector2(790, 560))
+	var zones := [
+		dz("charco", Vector2(700, 520), Vector2(220, 160), ["pelota"], "burbujas", 520.0, "charco", "salpicando"),
+	]
+	save_scene("parque", Color(0.82, 0.95, 0.80), objs, zones, [], true, Vector2(790, 560))
 
 func _scene_fiesta() -> void:
 	var objs := [

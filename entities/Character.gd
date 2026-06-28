@@ -49,6 +49,15 @@ func _build_parts() -> void:
 	_add_part("kid_skin", piel, 1)
 	_add_part("kid_hair", _slot_color("pelo"), 2)
 	_add_part("kid_face", Color.WHITE, 3)
+	# Accesorio opcional (gafas) desde el Wardrobe.
+	if use_game_state and GameState.character_config.has("accesorio"):
+		var acc: Dictionary = GameState.character_config["accesorio"]
+		if acc.get("on", false):
+			var ac := Color(0.2, 0.2, 0.25)
+			if acc.has("modulate"):
+				var m: Array = acc["modulate"]
+				ac = Color(m[0], m[1], m[2])
+			_add_part("kid_glasses", ac, 4)
 	# Párpados (para parpadear): elipses color piel sobre los ojos, ocultos por defecto.
 	_eyelids.clear()
 	for ex in [-17.0, 17.0]:
@@ -57,7 +66,7 @@ func _build_parts() -> void:
 		lid.modulate = piel
 		lid.position = Vector2(ex, -21)
 		lid.scale = Vector2(0.62, 0.0)
-		lid.z_index = 4
+		lid.z_index = 5
 		_rig.add_child(lid)
 		_eyelids.append(lid)
 

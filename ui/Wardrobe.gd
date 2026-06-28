@@ -23,12 +23,12 @@ func _ready() -> void:
 
 	var panel := PanelContainer.new()
 	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	panel.custom_minimum_size = Vector2(560, 420)
-	panel.position = Vector2(-280, -210)
+	panel.custom_minimum_size = Vector2(600, 520)
+	panel.position = Vector2(-300, -260)
 	add_child(panel)
 
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 18)
+	vbox.add_theme_constant_override("separation", 16)
 	panel.add_child(vbox)
 
 	for slot in PALETTE.keys():
@@ -43,12 +43,59 @@ func _ready() -> void:
 			row.add_child(_swatch(slot, color))
 		vbox.add_child(row)
 
+	# Accesorio: gafas (ninguno + colores).
+	var grow := HBoxContainer.new()
+	grow.add_theme_constant_override("separation", 12)
+	var glabel := Label.new()
+	glabel.text = "gafas"
+	glabel.custom_minimum_size = Vector2(110, 0)
+	glabel.add_theme_font_size_override("font_size", 26)
+	grow.add_child(glabel)
+	grow.add_child(_accessory_none())
+	for color in [Color(0.2, 0.2, 0.25), Color(0.9, 0.4, 0.5), Color(0.4, 0.6, 0.95)]:
+		grow.add_child(_accessory(color))
+	vbox.add_child(grow)
+
+	var buttons := HBoxContainer.new()
+	buttons.add_theme_constant_override("separation", 16)
+	var reset := Button.new()
+	reset.text = "Reiniciar"
+	reset.add_theme_font_size_override("font_size", 26)
+	reset.focus_mode = Control.FOCUS_NONE
+	reset.pressed.connect(_on_reset)
+	buttons.add_child(reset)
 	var close := Button.new()
 	close.text = "Listo"
 	close.add_theme_font_size_override("font_size", 28)
 	close.focus_mode = Control.FOCUS_NONE
 	close.pressed.connect(hide)
-	vbox.add_child(close)
+	buttons.add_child(close)
+	vbox.add_child(buttons)
+
+func _accessory(color: Color) -> Button:
+	var b := Button.new()
+	b.custom_minimum_size = Vector2(80, 80)
+	b.focus_mode = Control.FOCUS_NONE
+	b.modulate = color
+	b.pressed.connect(func():
+		GameState.set_character_slot("accesorio", {"on": true, "modulate": [color.r, color.g, color.b]})
+	)
+	return b
+
+func _accessory_none() -> Button:
+	var b := Button.new()
+	b.text = "—"
+	b.custom_minimum_size = Vector2(80, 80)
+	b.add_theme_font_size_override("font_size", 28)
+	b.focus_mode = Control.FOCUS_NONE
+	b.pressed.connect(func(): GameState.set_character_slot("accesorio", {"on": false}))
+	return b
+
+# Reinicia el guardado y vuelve al hub con la apariencia por defecto.
+func _on_reset() -> void:
+	SaveManager.reset()
+	hide()
+	SceneRouter.go_to("hub")
 
 func _swatch(slot: String, color: Color) -> Button:
 	var b := Button.new()
