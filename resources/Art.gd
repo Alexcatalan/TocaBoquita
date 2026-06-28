@@ -185,6 +185,15 @@ static func _draw(img: Image, shape: String, c: Color) -> void:
 		"cannon_fire": _cannon(img, c, true)
 		"hat": _hat(img, c)
 		"door": _door(img, c)
+		"palm": _palm(img, c)
+		"umbrella": _umbrella(img, c)
+		"sandcastle": _sandcastle(img, c)
+		"wave": _wave(img, c, false)
+		"wave_splash": _wave(img, c, true)
+		"bucket": _bucket(img, c)
+		"starfish": _starfish(img, c)
+		"crab": _crab(img, c)
+		"sun": _sun(img, c)
 		"kid_body": _kid_body(img, c)
 		"kid_skin": _kid_skin(img, c)
 		"kid_hair": _kid_hair(img, c)
@@ -535,6 +544,90 @@ static func _hat(img: Image, c: Color) -> void:
 	_seg(img, 92, 162, 148, 162, 6, c.lightened(0.18))
 	_circle(img, 120, 50, 13, Color(1, 1, 1))
 	_ellipse(img, 120, 190, 44, 10, c.darkened(0.12))
+
+# ---- Playa ----
+
+static func _palm(img: Image, c: Color) -> void:
+	_seg(img, 118, 214, 112, 150, 16, Color(0.62, 0.46, 0.3))
+	_seg(img, 112, 150, 128, 92, 16, Color(0.62, 0.46, 0.3))
+	for k: int in 5:
+		var a := PI + 0.55 + k * (PI - 1.1) / 4.0
+		_ellipse(img, 128 + cos(a) * 44, 90 + sin(a) * 30, 40, 15, c)
+	_circle(img, 116, 104, 9, Color(0.5, 0.36, 0.24))
+	_circle(img, 136, 106, 9, Color(0.5, 0.36, 0.24))
+
+static func _umbrella(img: Image, c: Color) -> void:
+	_seg(img, 120, 214, 120, 96, 7, Color(0.7, 0.7, 0.75))
+	for k: int in 6:
+		var x0 := 50.0 + k * 23.0
+		var x1 := x0 + 23.0
+		var col := c if k % 2 == 0 else Color(0.98, 0.98, 1.0)
+		_tri(img, 120, 78, x0, 118 - sin(PI * (x0 - 50) / 140.0) * 8.0, x1, 118 - sin(PI * (x1 - 50) / 140.0) * 8.0, col)
+	_circle(img, 120, 76, 6, c.darkened(0.2))
+
+static func _sandcastle(img: Image, c: Color) -> void:
+	_rr(img, 120, 176, 156, 64, 8, c)
+	_rr(img, 78, 134, 38, 92, 6, c)
+	_rr(img, 162, 134, 38, 92, 6, c)
+	_rr(img, 120, 122, 46, 104, 6, c.lightened(0.04))
+	for tx: int in [62, 78, 94]:
+		_rr(img, tx, 86, 10, 14, 2, c)
+	for tx2: int in [146, 162, 178]:
+		_rr(img, tx2, 86, 10, 14, 2, c)
+	_rr(img, 120, 188, 26, 40, 6, c.darkened(0.22))
+	_seg(img, 120, 70, 120, 44, 4, Color(0.6, 0.6, 0.65))
+	_tri(img, 120, 46, 148, 54, 120, 62, Color(0.95, 0.4, 0.45))
+
+static func _wave(img: Image, c: Color, splash: bool) -> void:
+	_ellipse(img, 120, 158, 98, 42, c)
+	_ellipse(img, 120, 138, 88, 24, c.lightened(0.12))
+	_ellipse(img, 86, 132, 26, 10, Color(1, 1, 1, 0.85))
+	_ellipse(img, 150, 136, 22, 9, Color(1, 1, 1, 0.8))
+	if splash:
+		_circle(img, 78, 92, 8, Color(0.8, 0.92, 1.0))
+		_circle(img, 120, 80, 10, Color(0.8, 0.92, 1.0))
+		_circle(img, 162, 94, 8, Color(0.8, 0.92, 1.0))
+
+static func _bucket(img: Image, c: Color) -> void:
+	_tri(img, 76, 116, 164, 116, 150, 198, c)
+	_tri(img, 76, 116, 150, 198, 90, 198, c)
+	_rr(img, 120, 112, 100, 18, 9, c.lightened(0.12))
+	for k: int in 14:
+		var a := PI * (0.05 + 0.9 * k / 13.0)
+		_circle(img, 120 - cos(a) * 52, 112 - sin(a) * 40, 3, c.darkened(0.2))
+
+static func _starfish(img: Image, c: Color) -> void:
+	var pts := []
+	for k: int in 10:
+		var a := -PI / 2.0 + TAU * k / 10.0
+		var r := 70.0 if k % 2 == 0 else 30.0
+		pts.append(Vector2(120 + cos(a) * r, 122 + sin(a) * r))
+	for k: int in 10:
+		_tri(img, 120, 122, pts[k].x, pts[k].y, pts[(k + 1) % 10].x, pts[(k + 1) % 10].y, c)
+	for k: int in 5:
+		var a2 := -PI / 2.0 + TAU * k / 5.0
+		_circle(img, 120 + cos(a2) * 36, 122 + sin(a2) * 36, 4, c.darkened(0.18))
+
+static func _crab(img: Image, c: Color) -> void:
+	_ellipse(img, 120, 142, 64, 42, c)
+	for sx: int in [-1, 1]:
+		_seg(img, 120 + sx * 30, 110, 120 + sx * 42, 86, 4, c.darkened(0.1))
+		_circle(img, 120 + sx * 42, 82, 9, Color.WHITE)
+		_circle(img, 120 + sx * 42, 82, 5, Color(0.2, 0.18, 0.2))
+		_circle(img, 120 + sx * 78, 150, 18, c)
+		_circle(img, 120 + sx * 86, 138, 9, c)
+		_seg(img, 120 + sx * 58, 150, 120 + sx * 78, 150, 7, c)
+		for k: int in 3:
+			_seg(img, 120 + sx * 40, 160 + k * 8, 120 + sx * 66, 168 + k * 10, 4, c.darkened(0.1))
+	_circle(img, 108, 140, 4, Color(0.2, 0.18, 0.2))
+	_circle(img, 132, 140, 4, Color(0.2, 0.18, 0.2))
+
+static func _sun(img: Image, c: Color) -> void:
+	for k: int in 12:
+		var a := TAU * k / 12.0
+		_seg(img, 120 + cos(a) * 62, 120 + sin(a) * 62, 120 + cos(a) * 88, 120 + sin(a) * 88, 7, c)
+	_circle(img, 120, 120, 58, c)
+	_circle(img, 100, 104, 14, c.lightened(0.12))
 
 # ---- Personaje (capas alineadas en el mismo lienzo 240; se apilan por z) ----
 

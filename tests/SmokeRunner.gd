@@ -115,7 +115,7 @@ func _test_router_flow() -> void:
 	print("- SceneRouter (navegación completa + HUD + jugador)")
 	await SceneRouter.start()
 	_check(SceneRouter.current_engine != null, "start() construye una escena")
-	for id in ["cocina", "dormitorio", "bano", "parque", "fiesta", "hub"]:
+	for id in ["cocina", "dormitorio", "bano", "parque", "fiesta", "playa", "hub"]:
 		await SceneRouter.go_to(id)
 		var eng := SceneRouter.current_engine
 		_check(GameState.current_scene_id == id and eng != null and eng.get_child_count() > 0, "navega y construye '%s'" % id)

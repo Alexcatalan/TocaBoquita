@@ -181,6 +181,19 @@ func _build_objects() -> void:
 	save_obj("canon", [st("listo", "cannon", PINK), st("disparado", "cannon_fire", PINK, 800.0, "confeti")])
 	save_obj("gorro", [st("gorro", "hat", PINK)], true, true)
 
+	# Playa
+	var sand := Color(0.95, 0.85, 0.6)
+	var sea := Color(0.45, 0.75, 0.95)
+	save_obj("mar", [st("quieto", "wave", sea), st("olas", "wave_splash", sea, 520.0, "burbujas")])
+	save_obj("sombrilla", [st("abierta", "umbrella", RED, 300.0)])
+	save_obj("castillo", [st("entero", "sandcastle", sand, 260.0, "estrellas")])
+	save_obj("palmera", [st("palmera", "palm", GREEN)])
+	save_obj("sol", [st("sol", "sun", YELLOW, 600.0, "estrellas")])
+	save_obj("cangrejo", [st("feliz", "crab", RED, 350.0, "corazones")], true, false)
+	save_obj("balde", [st("balde", "bucket", BLUE)], true, true, ["mar"])
+	save_obj("estrella", [st("estrella", "starfish", ORANGE)], true, true, ["mar"])
+	save_obj("pelota_playa", [st("pelota", "ball", Color(1.0, 0.7, 0.4))], true, true)
+
 # --- Personaje ---
 
 func _build_character() -> void:
@@ -208,14 +221,17 @@ func _build_scenes() -> void:
 	_scene_bano()
 	_scene_parque()
 	_scene_fiesta()
+	_scene_playa()
 
 func _scene_hub() -> void:
+	# 6 puertas en 2 filas de 3.
 	var doors := [
-		exit(Vector2(260, 260), Vector2(220, 180), "cocina", "Cocina", ORANGE),
-		exit(Vector2(640, 260), Vector2(220, 180), "dormitorio", "Dormitorio", LAVENDER),
-		exit(Vector2(1020, 260), Vector2(220, 180), "bano", "Baño", LBLUE),
-		exit(Vector2(420, 470), Vector2(220, 180), "parque", "Parque", GREEN),
-		exit(Vector2(840, 470), Vector2(220, 180), "fiesta", "Fiesta", PINK),
+		exit(Vector2(260, 250), Vector2(220, 180), "cocina", "Cocina", ORANGE),
+		exit(Vector2(640, 250), Vector2(220, 180), "dormitorio", "Dormitorio", LAVENDER),
+		exit(Vector2(1020, 250), Vector2(220, 180), "bano", "Baño", LBLUE),
+		exit(Vector2(260, 480), Vector2(220, 180), "parque", "Parque", GREEN),
+		exit(Vector2(640, 480), Vector2(220, 180), "fiesta", "Fiesta", PINK),
+		exit(Vector2(1020, 480), Vector2(220, 180), "playa", "Playa", Color(1.0, 0.82, 0.4)),
 	]
 	# El hub es un menú: sin personaje (evita solaparse con las puertas).
 	save_scene("hub", Color(0.95, 0.93, 0.98), [], [], doors, false)
@@ -290,3 +306,35 @@ func _scene_fiesta() -> void:
 		placed("gorro", Vector2(640, 200)),
 	]
 	save_scene("fiesta", Color(0.99, 0.90, 0.94), objs, [], [], true, Vector2(1120, 560))
+
+func _scene_playa() -> void:
+	var objs := [
+		placed("sol", Vector2(180, 170)),
+		placed("palmera", Vector2(1060, 300), Vector2(1.2, 1.3)),
+		placed("mar", Vector2(300, 430), Vector2(1.4, 1.0)),
+		placed("castillo", Vector2(560, 470)),
+		placed("sombrilla", Vector2(840, 360)),
+		placed("cangrejo", Vector2(700, 600)),
+		placed("balde", Vector2(380, 610)),
+		placed("estrella", Vector2(520, 630)),
+		placed("pelota_playa", Vector2(980, 600)),
+	]
+	var zones := [
+		dz("mar", Vector2(300, 430), Vector2(260, 180), ["balde", "estrella", "pelota_playa"], "burbujas", 520.0, "mar", "olas"),
+	]
+	# Cielo arriba, arena abajo.
+	var sd := SceneData.new()
+	sd.id = "playa"
+	sd.background_color = Color(0.66, 0.88, 1.0)
+	sd.floor_color = Color(0.96, 0.87, 0.62)
+	var po: Array[PlacedObject] = []
+	for p in objs:
+		po.append(p)
+	sd.placed_objects = po
+	var dzs: Array[DropZoneDef] = []
+	for z in zones:
+		dzs.append(z)
+	sd.drop_zones = dzs
+	sd.spawn_player = true
+	sd.player_position = Vector2(1130, 560)
+	ResourceSaver.save(sd, "res://data/scenes/playa.tres")

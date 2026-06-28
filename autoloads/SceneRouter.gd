@@ -47,7 +47,8 @@ func go_to(scene_id: String) -> void:
 	_root.add_child(current_engine)
 	current_engine.build(sd)  # construir ya en el árbol (no dentro de _ready)
 	GameState.set_current_scene(scene_id)
-	AudioManager.play_music(sd.ambient_music)
+	# Música: asset de la escena si existe; si no, loop ambiental procedural por escena.
+	AudioManager.play_music(sd.ambient_music if sd.ambient_music else MusicGen.for_scene(scene_id))
 	if _hud:
 		_hud.refresh()
 
