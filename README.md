@@ -71,7 +71,7 @@ Todo es **data-driven**: la lógica es genérica, el contenido son `Resource`.
 | **UI** | `ui/HUD.gd` (mute, hub, inventario), `ui/Wardrobe.gd` |
 | **Entidades / escenas** | `entities/Character.gd`, `scenes/Boot.*` |
 | **Contenido** | `data/objects/*.tres`, `data/scenes/*.tres`, `data/characters/*.tres` |
-| **Placeholders** | `resources/Placeholder.gd` (formas + beep por código) |
+| **Arte procedural** | `resources/Art.gd` (~50 formas reconocibles + personaje, antialias y volumen), `resources/Placeholder.gd` (beep + utilidades) |
 | **Herramientas / tests** | `tools/build_data.gd` (genera el contenido), `tests/SmokeRunner.*` |
 
 ### Flujo de runtime

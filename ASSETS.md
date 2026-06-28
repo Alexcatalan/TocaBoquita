@@ -1,8 +1,8 @@
 # ASSETS — arte necesario (placeholders → arte final)
 
-Hoy **todo es placeholder generado por código** (`resources/Placeholder.gd`): formas redondeadas pastel tintadas con `modulate` y un beep sintético. El juego es 100% jugable así.
+Hoy **todo es arte procedural generado por código** (`resources/Art.gd`): cada objeto se dibuja como una figura reconocible (refri, torta, pato, árbol…) con antialias y volumen suave, a partir de `shape` + `modulate` del estado. El personaje también es procedural por capas. El juego es 100% jugable así, sin un solo PNG.
 
-**Para pasar a arte final no se toca lógica:** cada `StateDef` y cada `CharacterLayer` tiene un campo `texture: Texture2D`. Basta asignar la textura en el `.tres` correspondiente (Inspector). Si `texture` está vacío, se usa el placeholder.
+**Para pasar a arte final no se toca lógica:** cada `StateDef` y cada `CharacterLayer` tiene un campo `texture: Texture2D`. Si `texture` está vacío, se dibuja `shape` con Art; si asignas una `Texture2D` en el `.tres` (Inspector), esa textura tiene prioridad y Art deja de usarse para ese estado.
 
 ## Convenciones
 - **Estilo:** cartoon moderno y amable; formas suaves, colores planos pastel, volumen simple.
