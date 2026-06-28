@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="SceneData" load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://resources/DropZoneDef.gd" id="1_no3x5"]
+[ext_resource type="Script" path="res://resources/SceneExit.gd" id="2_h8fu1"]
+[ext_resource type="Script" path="res://resources/PlacedObject.gd" id="3_typf0"]
+[ext_resource type="Resource" path="res://data/objects/torta.tres" id="4_chaoc"]
+[ext_resource type="Resource" path="res://data/objects/globo1.tres" id="5_o2g4q"]
+[ext_resource type="Resource" path="res://data/objects/globo2.tres" id="6_bfqnh"]
+[ext_resource type="Resource" path="res://data/objects/regalo1.tres" id="7_yluj4"]
+[ext_resource type="Resource" path="res://data/objects/regalo2.tres" id="8_xgc0w"]
+[ext_resource type="Resource" path="res://data/objects/canon.tres" id="9_c1dgq"]
+[ext_resource type="Resource" path="res://data/objects/gorro.tres" id="10_ii2j4"]
+[ext_resource type="Script" path="res://resources/SceneData.gd" id="11_flxj1"]
+
+[sub_resource type="Resource" id="Resource_0vj48"]
+script = ExtResource("3_typf0")
+object_data = ExtResource("4_chaoc")
+position = Vector2(640, 380)
+scale = Vector2(1.3, 1.3)
+
+[sub_resource type="Resource" id="Resource_djgdt"]
+script = ExtResource("3_typf0")
+object_data = ExtResource("5_o2g4q")
+position = Vector2(260, 280)
+scale = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_burgm"]
+script = ExtResource("3_typf0")
+object_data = ExtResource("6_bfqnh")
+position = Vector2(1020, 280)
+scale = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_5q5tn"]
+script = ExtResource("3_typf0")
+object_data = ExtResource("7_yluj4")
+position = Vector2(360, 560)
+scale = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_ii7oi"]
+script = ExtResource("3_typf0")
+object_data = ExtResource("8_xgc0w")
+position = Vector2(920, 560)
+scale = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_pltc2"]
+script = ExtResource("3_typf0")
+object_data = ExtResource("9_c1dgq")
+position = Vector2(640, 600)
+scale = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_evt4r"]
+script = ExtResource("3_typf0")
+object_data = ExtResource("10_ii2j4")
+position = Vector2(640, 200)
+scale = Vector2(1, 1)
+
+[resource]
+script = ExtResource("11_flxj1")
+id = "fiesta"
+background_color = Color(0.99, 0.9, 0.94, 1)
+floor_color = Color(0, 0, 0, 0)
+placed_objects = Array[ExtResource("3_typf0")]([SubResource("Resource_0vj48"), SubResource("Resource_djgdt"), SubResource("Resource_burgm"), SubResource("Resource_5q5tn"), SubResource("Resource_ii7oi"), SubResource("Resource_pltc2"), SubResource("Resource_evt4r")])
+drop_zones = Array[ExtResource("1_no3x5")]([])
+exits = Array[ExtResource("2_h8fu1")]([])
+spawn_player = true
+player_position = Vector2(1120, 560)

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ObjectData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://resources/ObjectData.gd" id="1_cstw4"]
+[ext_resource type="Script" path="res://resources/StateDef.gd" id="2_mli7e"]
+
+[sub_resource type="Resource" id="Resource_h41od"]
+script = ExtResource("2_mli7e")
+id = "pelota"
+shape = "ball"
+modulate = Color(1, 0.7, 0.4, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[resource]
+script = ExtResource("1_cstw4")
+id = "pelota_playa"
+draggable = true
+portable = true
+states = Array[ExtResource("2_mli7e")]([SubResource("Resource_h41od")])
+drop_targets = Array[String]([])
+initial_state = "pelota"

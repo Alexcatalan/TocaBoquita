@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ObjectData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://resources/ObjectData.gd" id="1_4ovte"]
+[ext_resource type="Script" path="res://resources/StateDef.gd" id="2_vnouo"]
+
+[sub_resource type="Resource" id="Resource_3hkvu"]
+script = ExtResource("2_vnouo")
+id = "dia"
+shape = "window_day"
+modulate = Color(0.58, 0.8, 1, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[sub_resource type="Resource" id="Resource_hewhb"]
+script = ExtResource("2_vnouo")
+id = "noche"
+shape = "window_night"
+modulate = Color(0.26, 0.3, 0.5, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[resource]
+script = ExtResource("1_4ovte")
+id = "ventana"
+draggable = false
+portable = false
+states = Array[ExtResource("2_vnouo")]([SubResource("Resource_3hkvu"), SubResource("Resource_hewhb")])
+drop_targets = Array[String]([])
+initial_state = "dia"

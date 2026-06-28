@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ObjectData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://resources/ObjectData.gd" id="1_48mp0"]
+[ext_resource type="Script" path="res://resources/StateDef.gd" id="2_o84pr"]
+
+[sub_resource type="Resource" id="Resource_2ghpo"]
+script = ExtResource("2_o84pr")
+id = "vacia"
+shape = "pot"
+modulate = Color(0.64, 0.66, 0.72, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[sub_resource type="Resource" id="Resource_y73vi"]
+script = ExtResource("2_o84pr")
+id = "llena"
+shape = "pot_full"
+modulate = Color(0.64, 0.66, 0.72, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[resource]
+script = ExtResource("1_48mp0")
+id = "olla"
+draggable = false
+portable = false
+states = Array[ExtResource("2_o84pr")]([SubResource("Resource_2ghpo"), SubResource("Resource_y73vi")])
+drop_targets = Array[String]([])
+initial_state = "vacia"

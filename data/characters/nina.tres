@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://resources/CharacterLayer.gd" id="1_cehc6"]
+[ext_resource type="Script" path="res://resources/CharacterData.gd" id="2_5oh2d"]
+
+[sub_resource type="Resource" id="Resource_xh75y"]
+script = ExtResource("1_cehc6")
+slot = "ropa"
+modulate = Color(0.66, 0.82, 0.95, 1)
+z_index = 0
+
+[sub_resource type="Resource" id="Resource_s7olq"]
+script = ExtResource("1_cehc6")
+slot = "piel"
+modulate = Color(1, 0.86, 0.74, 1)
+z_index = 1
+
+[sub_resource type="Resource" id="Resource_cfivd"]
+script = ExtResource("1_cehc6")
+slot = "pelo"
+modulate = Color(0.45, 0.32, 0.26, 1)
+z_index = 2
+
+[resource]
+script = ExtResource("2_5oh2d")
+id = "nina"
+layers = Array[ExtResource("1_cehc6")]([SubResource("Resource_xh75y"), SubResource("Resource_s7olq"), SubResource("Resource_cfivd")])

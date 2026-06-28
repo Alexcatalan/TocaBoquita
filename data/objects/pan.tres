@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ObjectData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://resources/ObjectData.gd" id="1_qdakn"]
+[ext_resource type="Script" path="res://resources/StateDef.gd" id="2_1xa5n"]
+
+[sub_resource type="Resource" id="Resource_65dwi"]
+script = ExtResource("2_1xa5n")
+id = "pan"
+shape = "bread"
+modulate = Color(0.8, 0.6, 0.4, 1)
+animation = ""
+particle = ""
+next_state = ""
+
+[resource]
+script = ExtResource("1_qdakn")
+id = "pan"
+draggable = true
+portable = true
+states = Array[ExtResource("2_1xa5n")]([SubResource("Resource_65dwi")])
+drop_targets = Array[String](["olla"])
+initial_state = "pan"

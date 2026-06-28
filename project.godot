@@ -1,0 +1,42 @@
+; Engine configuration file.
+; TocaBoquita - sandbox infantil tipo Toca Boca (Godot 4.4, export Web)
+; Generado a mano: si abres el proyecto en el editor, Godot lo normaliza.
+
+config_version=5
+
+[application]
+
+config/name="TocaBoquita"
+config/description="Sandbox infantil estilo Toca Boca. Web-first, data-driven con Resources."
+run/main_scene="res://scenes/Boot.tscn"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://autoloads/GameState.gd"
+AudioManager="*res://autoloads/AudioManager.gd"
+ParticleFactory="*res://core/ParticleFactory.gd"
+SaveManager="*res://autoloads/SaveManager.gd"
+SceneRouter="*res://autoloads/SceneRouter.gd"
+
+[display]
+
+; Stretch para adaptarse a cualquier pantalla (desktop y movil).
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[input_devices]
+
+; Tactil de primera clase: mouse <-> touch intercambiables.
+pointing/emulate_touch_from_mouse=true
+pointing/emulate_mouse_from_touch=true
+
+[rendering]
+
+; GL Compatibility = mejor soporte y arranque en navegadores y movil.
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=1

@@ -1,0 +1,12 @@
+# Godot 4 editor cache e imports generados
+.godot/
+.import/
+
+# Builds exportados
+/build/
+/export/
+*.tmp
+
+# Sistema
+.DS_Store
+Thumbs.db
